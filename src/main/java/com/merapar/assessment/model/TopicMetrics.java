@@ -5,6 +5,8 @@ import java.util.Objects;
 
 public class TopicMetrics {
 
+    private LocalDateTime analyseDate = null;
+
     private LocalDateTime firstPost = null;
 
     private LocalDateTime lastPost = null;
@@ -22,9 +24,11 @@ public class TopicMetrics {
     private int totalCommentCount = 0;
 
     public TopicMetrics() {
+        this.analyseDate = LocalDateTime.now();
     }
 
     public TopicMetrics(LocalDateTime firstPost, LocalDateTime lastPost, int totalPosts, int totalAcceptedPosts, int totalScore, int totalViewCount, int totalAnswerCount, int totalCommentCount) {
+        this();
         this.firstPost = firstPost;
         this.lastPost = lastPost;
         this.totalPosts = totalPosts;
@@ -50,6 +54,10 @@ public class TopicMetrics {
         this.totalViewCount += postData.getViewCount();
         this.totalAnswerCount += postData.getAnswerCount();
         this.totalCommentCount += postData.getCommentCount();
+    }
+
+    public LocalDateTime getAnalyseDate() {
+        return analyseDate;
     }
 
     public LocalDateTime getFirstPost() {
