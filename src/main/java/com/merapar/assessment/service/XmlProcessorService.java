@@ -1,9 +1,11 @@
 package com.merapar.assessment.service;
 
 import com.merapar.assessment.model.Input;
-import com.merapar.assessment.model.Output;
+import com.merapar.assessment.model.TopicMetrics;
+
+import javax.xml.stream.XMLStreamException;
 
 public interface XmlProcessorService {
 
-    Output process(Input input);
+    TopicMetrics process(Input input) throws XMLStreamException;
 }
