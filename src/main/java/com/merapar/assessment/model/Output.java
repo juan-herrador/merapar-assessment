@@ -1,54 +1,50 @@
 package com.merapar.assessment.model;
 
-import java.util.Date;
-
 public class Output {
 
-    private Date firstPost;
+    private TopicMetrics topicMetrics;
 
-    private Date lastPost;
-
-    private int totalPosts;
-
-    private int totalAcceptedPosts;
-
-    private float avgScore;
-
-    private float avgViewCount;
-
-    private float avgAnswerCount;
-
-    private float avgCommentCount;
-
-    public Date getFirstPost() {
-        return firstPost;
+    public Output(TopicMetrics topicMetrics) {
+        this.topicMetrics = topicMetrics;
     }
 
-    public Date getLastPost() {
-        return lastPost;
+    public String getFirstPost() {
+        return this.topicMetrics.getFirstPost().toString();
+    }
+
+    public String getLastPost() {
+        return this.topicMetrics.getLastPost().toString();
     }
 
     public int getTotalPosts() {
-        return totalPosts;
+        return this.topicMetrics.getTotalPosts();
     }
 
     public int getTotalAcceptedPosts() {
-        return totalAcceptedPosts;
+        return this.topicMetrics.getTotalAcceptedPosts();
     }
 
     public float getAvgScore() {
-        return avgScore;
+        return this.topicMetrics.getTotalPosts() != 0 ?
+                (float)this.topicMetrics.getTotalScore() / this.topicMetrics.getTotalPosts() :
+                0;
     }
 
     public float getAvgViewCount() {
-        return avgViewCount;
+        return this.topicMetrics.getTotalPosts() != 0 ?
+                (float)this.topicMetrics.getTotalViewCount() / this.topicMetrics.getTotalPosts() :
+                0;
     }
 
     public float getAvgAnswerCount() {
-        return avgAnswerCount;
+        return this.topicMetrics.getTotalPosts() != 0 ?
+                (float)this.topicMetrics.getTotalAnswerCount() / this.topicMetrics.getTotalPosts() :
+                0;
     }
 
     public float getAvgCommentCount() {
-        return avgCommentCount;
+        return this.topicMetrics.getTotalPosts() != 0 ?
+                (float)this.topicMetrics.getTotalCommentCount() / this.topicMetrics.getTotalPosts() :
+                0;
     }
 }
