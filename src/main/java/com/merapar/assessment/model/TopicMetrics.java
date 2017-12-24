@@ -2,7 +2,7 @@ package com.merapar.assessment.model;
 
 import java.util.Date;
 
-public class Output {
+public class TopicMetrics {
 
     private Date firstPost;
 
@@ -12,13 +12,13 @@ public class Output {
 
     private int totalAcceptedPosts;
 
-    private float avgScore;
+    private int totalScore;
 
-    private float avgViewCount;
+    private int totalViewCount;
 
-    private float avgAnswerCount;
+    private int totalAnswerCount;
 
-    private float avgCommentCount;
+    private int totalCommentCount;
 
     public Date getFirstPost() {
         return firstPost;
@@ -36,19 +36,19 @@ public class Output {
         return totalAcceptedPosts;
     }
 
-    public float getAvgScore() {
-        return avgScore;
+    public int getTotalScore() {
+        return totalScore;
     }
 
-    public float getAvgViewCount() {
-        return avgViewCount;
+    public int getTotalViewCount() {
+        return totalViewCount;
     }
 
-    public float getAvgAnswerCount() {
-        return avgAnswerCount;
+    public int getTotalAnswerCount() {
+        return totalAnswerCount;
     }
 
-    public float getAvgCommentCount() {
-        return avgCommentCount;
+    public int getTotalCommentCount() {
+        return totalCommentCount;
     }
 }
