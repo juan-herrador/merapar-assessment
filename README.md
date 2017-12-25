@@ -57,7 +57,8 @@ $ curl -i -X POST \
 * The assessment said to create the Dockerfile based on the standard Java docker image (https://hub.docker.com/_/java/). 
 However this image is deprecated, so I've decided to use the one recommended there (https://hub.docker.com/_/openjdk/).
 
-*
+* To avoid having issues reading big files, we use the stream functionality that allow us read a file by chunks. In this 
+case we use XMLStreamReader (https://docs.oracle.com/javase/8/docs/api/javax/xml/stream/XMLStreamReader.html).
 
 ## Built With
 
