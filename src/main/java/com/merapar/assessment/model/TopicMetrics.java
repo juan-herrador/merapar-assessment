@@ -1,15 +1,15 @@
 package com.merapar.assessment.model;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 public class TopicMetrics {
 
-    private LocalDateTime analyseDate = null;
+    private ZonedDateTime analyseDate = null;
 
-    private LocalDateTime firstPost = null;
+    private ZonedDateTime firstPost = null;
 
-    private LocalDateTime lastPost = null;
+    private ZonedDateTime lastPost = null;
 
     private int totalPosts = 0;
 
@@ -24,10 +24,10 @@ public class TopicMetrics {
     private int totalCommentCount = 0;
 
     public TopicMetrics() {
-        this.analyseDate = LocalDateTime.now();
+        this.analyseDate = ZonedDateTime.now();
     }
 
-    public TopicMetrics(LocalDateTime firstPost, LocalDateTime lastPost, int totalPosts, int totalAcceptedPosts, int totalScore, int totalViewCount, int totalAnswerCount, int totalCommentCount) {
+    public TopicMetrics(ZonedDateTime firstPost, ZonedDateTime lastPost, int totalPosts, int totalAcceptedPosts, int totalScore, int totalViewCount, int totalAnswerCount, int totalCommentCount) {
         this();
         this.firstPost = firstPost;
         this.lastPost = lastPost;
@@ -56,15 +56,15 @@ public class TopicMetrics {
         this.totalCommentCount += postData.getCommentCount();
     }
 
-    public LocalDateTime getAnalyseDate() {
+    public ZonedDateTime getAnalyseDate() {
         return analyseDate;
     }
 
-    public LocalDateTime getFirstPost() {
+    public ZonedDateTime getFirstPost() {
         return firstPost;
     }
 
-    public LocalDateTime getLastPost() {
+    public ZonedDateTime getLastPost() {
         return lastPost;
     }
 
