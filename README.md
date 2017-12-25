@@ -52,6 +52,12 @@ $ curl -i -X POST \
   'http://192.168.99.100:8080/analyze/'
 ```
 
+### Running tests
+To run the test, just execute
+```
+$ ./mvnw test
+```
+
 ## Decisions made
 
 * The assessment said to create the Dockerfile based on the standard Java docker image (https://hub.docker.com/_/java/). 
