@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Service
@@ -54,7 +55,7 @@ public class GitHubTopicXmlStreamReaderService implements XmlStreamReaderService
     private PostData readPost(XMLStreamReader reader) {
         PostData postData = new PostData();
         LocalDateTime creationDate = LocalDateTime.parse(reader.getAttributeValue(null, "CreationDate"), DateTimeFormatter.ISO_DATE_TIME);
-        postData.setCreationDate(creationDate);
+        postData.setCreationDate(creationDate.atZone(ZoneId.systemDefault()));
         postData.setCommentCount(getIntegerAttributeValue(reader, "CommentCount"));
         postData.setScore(getIntegerAttributeValue(reader, "Score"));
         postData.setAcceptedAnswerId(getIntegerAttributeValue(reader, "AcceptedAnswerId"));

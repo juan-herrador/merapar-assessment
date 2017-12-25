@@ -10,6 +10,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.StringReader;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -24,8 +25,8 @@ public class GitHubTopicXmlStreamReaderServiceTest extends TestCase {
                 },
                 {getOnePost(),
                         new TopicMetrics(
-                                LocalDateTime.parse("2015-07-14T18:39:27.757"),
-                                LocalDateTime.parse("2015-07-14T18:39:27.757"),
+                                LocalDateTime.parse("2015-07-14T18:39:27.757").atZone(ZoneId.systemDefault()),
+                                LocalDateTime.parse("2015-07-14T18:39:27.757").atZone(ZoneId.systemDefault()),
                                 1,
                                 1,
                                 4,
@@ -35,8 +36,8 @@ public class GitHubTopicXmlStreamReaderServiceTest extends TestCase {
                 },
                 {getTwoPosts(),
                         new TopicMetrics(
-                                LocalDateTime.parse("2015-07-14T18:39:27.757"),
-                                LocalDateTime.parse("2015-07-14T18:42:42.553"),
+                                LocalDateTime.parse("2015-07-14T18:39:27.757").atZone(ZoneId.systemDefault()),
+                                LocalDateTime.parse("2015-07-14T18:42:42.553").atZone(ZoneId.systemDefault()),
                                 2,
                                 1,
                                 4,
@@ -46,8 +47,8 @@ public class GitHubTopicXmlStreamReaderServiceTest extends TestCase {
                 },
                 {getThreePosts(),
                         new TopicMetrics(
-                                LocalDateTime.parse("2015-07-14T18:39:27.757"),
-                                LocalDateTime.parse("2015-07-14T19:16:18.303"),
+                                LocalDateTime.parse("2015-07-14T18:39:27.757").atZone(ZoneId.systemDefault()),
+                                LocalDateTime.parse("2015-07-14T19:16:18.303").atZone(ZoneId.systemDefault()),
                                 3,
                                 1,
                                 5,

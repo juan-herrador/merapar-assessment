@@ -1,12 +1,12 @@
 package com.merapar.assessment.model;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class PostData {
 
     private int acceptedAnswerId = 0;
 
-    private LocalDateTime creationDate;
+    private ZonedDateTime creationDate;
 
     private int score = 0;
 
@@ -24,11 +24,11 @@ public class PostData {
         this.acceptedAnswerId = acceptedAnswerId;
     }
 
-    public LocalDateTime getCreationDate() {
+    public ZonedDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(ZonedDateTime creationDate) {
         this.creationDate = creationDate;
     }
 

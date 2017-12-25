@@ -1,12 +1,13 @@
 package com.merapar.assessment.model;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Output {
 
     private Details details;
 
-    private LocalDateTime analyseDate;
+    private ZonedDateTime analyseDate;
 
     public Output(TopicMetrics topicMetrics) {
         this.analyseDate = topicMetrics.getAnalyseDate();
@@ -14,7 +15,7 @@ public class Output {
     }
 
     public String getAnalyseDate() {
-        return analyseDate.toString();
+        return analyseDate.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
     }
 
     public Details getDetails() {
@@ -30,11 +31,11 @@ public class Output {
         }
 
         public String getFirstPost() {
-            return this.topicMetrics.getFirstPost().toString();
+            return this.topicMetrics.getFirstPost().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         }
 
         public String getLastPost() {
-            return this.topicMetrics.getLastPost().toString();
+            return this.topicMetrics.getLastPost().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         }
 
         public int getTotalPosts() {
