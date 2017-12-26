@@ -27,7 +27,7 @@ public class RemoteXmlProcessorService implements XmlProcessorService {
             reader = XMLInputFactory.newInstance().createXMLStreamReader(url.openStream());
             return this.xmlStreamReaderService.readDocument(reader);
         } catch (IOException ex) {
-            // handle exception
+            // TODO: handle exception
 
         } finally {
             if (reader != null) {

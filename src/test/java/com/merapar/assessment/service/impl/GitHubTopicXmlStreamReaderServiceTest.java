@@ -66,7 +66,7 @@ public class GitHubTopicXmlStreamReaderServiceTest extends TestCase {
     public TopicMetrics expectedMetrics;
 
     @Test
-    public void processEmptyXml() throws XMLStreamException {
+    public void processXml() throws XMLStreamException {
         XMLInputFactory f = XMLInputFactory.newInstance();
         XMLStreamReader reader = f.createXMLStreamReader(new StringReader(this.xmlContent));
 
