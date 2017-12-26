@@ -22,7 +22,7 @@ public class Output {
         return details;
     }
 
-    private class Details {
+    public class Details {
 
         private TopicMetrics topicMetrics;
 
@@ -31,11 +31,17 @@ public class Output {
         }
 
         public String getFirstPost() {
-            return this.topicMetrics.getFirstPost().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+            return
+                    this.topicMetrics.getFirstPost() != null ?
+                            this.topicMetrics.getFirstPost().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME) :
+                            null;
         }
 
         public String getLastPost() {
-            return this.topicMetrics.getLastPost().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+            return
+                    this.topicMetrics.getLastPost() != null ?
+                            this.topicMetrics.getLastPost().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME) :
+                            null;
         }
 
         public int getTotalPosts() {

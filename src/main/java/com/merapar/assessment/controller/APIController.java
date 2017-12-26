@@ -7,6 +7,7 @@ import com.merapar.assessment.service.XmlProcessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.xml.stream.XMLStreamException;
 
 @RestController
@@ -16,12 +17,13 @@ public class APIController {
     private XmlProcessorService xmlProcessorService;
 
     @RequestMapping(value = "/analyze", method = RequestMethod.POST)
-    public Output analyze(@RequestBody Input input) {
+    public Output analyze(@RequestBody @Valid Input input) {
         TopicMetrics topicMetrics = null;
+
         try {
             topicMetrics = this.xmlProcessorService.process(input);
         } catch (XMLStreamException ex) {
-
+            // TODO: handle error
         }
 
         return new Output(topicMetrics);
