@@ -1,9 +1,12 @@
 package com.merapar.assessment.controller;
 
+import com.merapar.assessment.model.Output;
 import com.merapar.assessment.model.TopicMetrics;
 import com.merapar.assessment.service.XmlProcessorService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -13,12 +16,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Collection;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@RunWith(Parameterized.class)
 public class APIControllerTest {
 
     @Mock
@@ -40,23 +45,54 @@ public class APIControllerTest {
 
     }
 
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][] {
+                {new TopicMetrics()},
+                {
+                    new TopicMetrics(
+                            LocalDateTime.parse("2015-07-14T18:39:27.757").atZone(ZoneId.systemDefault()),
+                            LocalDateTime.parse("2015-07-14T18:39:27.757").atZone(ZoneId.systemDefault()),
+                            1,
+                            1,
+                            4,
+                            123,
+                            5,
+                            4)
+                },
+                {
+                    new TopicMetrics(
+                            LocalDateTime.parse("2015-07-14T18:39:27.757").atZone(ZoneId.systemDefault()),
+                            LocalDateTime.parse("2015-07-14T18:42:42.553").atZone(ZoneId.systemDefault()),
+                            2,
+                            1,
+                            4,
+                            123,
+                            5,
+                            4)
+                },
+                {
+                    new TopicMetrics(
+                            LocalDateTime.parse("2015-07-14T18:39:27.757").atZone(ZoneId.systemDefault()),
+                            LocalDateTime.parse("2015-07-14T19:16:18.303").atZone(ZoneId.systemDefault()),
+                            3,
+                            1,
+                            5,
+                            123,
+                            5,
+                            6)
+                },
+        });
+    }
+
+    @Parameterized.Parameter(0)
+    public TopicMetrics topicMetrics;
+
     @Test
     public void analyze() throws Exception {
-        TopicMetrics topicMetrics =
-                new TopicMetrics(
-                        LocalDateTime.parse("2015-07-14T18:39:27.757").atZone(ZoneId.systemDefault()),
-                        LocalDateTime.parse("2015-09-12T19:21:54.345").atZone(ZoneId.systemDefault()),
-                        123,
-                        24,
-                        342,
-                        553,
-                        68,
-                        236
-                );
-
         doReturn(topicMetrics).when(this.xmlProcessorService).process(any());
 
-        String expectedOutput = getExpectedOutput(topicMetrics);
+        String expectedOutput = getExpectedOutput(new Output(topicMetrics));
 
         this.mockMvc.perform(post("/analyze")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -73,45 +109,34 @@ public class APIControllerTest {
                 .andExpect(status().is4xxClientError());
     }
 
-    private static String getExpectedOutput(TopicMetrics topicMetrics) {
+    private static String getExpectedOutput(Output output) {
         String analyseDate =
-                topicMetrics.getAnalyseDate() != null ?
-                        "\"" + topicMetrics.getAnalyseDate().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME) + "\"" :
+                output.getAnalyseDate() != null ?
+                        "\"" + output.getAnalyseDate() + "\"" :
                         null;
+
         String firstPost =
-                topicMetrics.getFirstPost() != null ?
-                        "\"" + topicMetrics.getFirstPost().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME) + "\"" :
+                output.getDetails().getFirstPost() != null ?
+                        "\"" + output.getDetails().getFirstPost() + "\"" :
                         null;
 
         String lastPost =
-                topicMetrics.getLastPost() != null ?
-                        "\"" + topicMetrics.getLastPost().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME) + "\"" :
+                output.getDetails().getLastPost() != null ?
+                        "\"" + output.getDetails().getLastPost() + "\"" :
                         null;
-
-        float avgScore = 0;
-        float avgViewCount = 0;
-        float avgAnswerCount = 0;
-        float avgCommentCount = 0;
-
-        if (topicMetrics.getTotalPosts() != 0) {
-            avgScore = (float)topicMetrics.getTotalScore() / topicMetrics.getTotalPosts();
-            avgViewCount = (float)topicMetrics.getTotalViewCount() / topicMetrics.getTotalPosts();
-            avgAnswerCount = (float)topicMetrics.getTotalAnswerCount() / topicMetrics.getTotalPosts();
-            avgCommentCount = (float)topicMetrics.getTotalCommentCount() / topicMetrics.getTotalPosts();
-        }
 
         return
             "{" +
                 "\"analyseDate\":" + analyseDate + "," +
                 "\"details\": {" +
-                    "\"avgScore\": " + avgScore + "," +
-                    "\"avgViewCount\": " + avgViewCount + "," +
-                    "\"avgAnswerCount\": " + avgAnswerCount + "," +
-                    "\"avgCommentCount\": " + avgCommentCount + "," +
+                    "\"avgScore\": " + output.getDetails().getAvgScore() + "," +
+                    "\"avgViewCount\": " + output.getDetails().getAvgViewCount() + "," +
+                    "\"avgAnswerCount\": " + output.getDetails().getAvgAnswerCount() + "," +
+                    "\"avgCommentCount\": " + output.getDetails().getAvgCommentCount() + "," +
                     "\"firstPost\":" + firstPost + "," +
                     "\"lastPost\":" + lastPost + "," +
-                    "\"totalPosts\": " + topicMetrics.getTotalPosts() + "," +
-                    "\"totalAcceptedPosts\": " + topicMetrics.getTotalAcceptedPosts() + "" +
+                    "\"totalPosts\": " + output.getDetails().getTotalPosts() + "," +
+                    "\"totalAcceptedPosts\": " + output.getDetails().getTotalAcceptedPosts() + "" +
                 "}" +
             "}";
     }
